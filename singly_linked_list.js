@@ -12,6 +12,7 @@ class SinglyLinkedList {
     this.length = 0;
   }
 
+  // add a node at the end
   push(val) {
     var node = new Node(val);
 
@@ -25,12 +26,42 @@ class SinglyLinkedList {
     this.length++;
   }
 
+  // remove a node from the end
+  pop() {
+    if (this.head === null && this.tail === null) {
+      return undefined;
+    }
+
+    // find the 2nd to last node
+    var prevNode = this.head;
+    for (var i = 1; i < this.length - 1; i++) {
+      prevNode = prevNode.next;
+    }
+
+    //remove last node
+    var lastNode = prevNode.next;
+    prevNode.next = null;
+    this.tail = prevNode;
+    this.length--;
+
+    // reset head and tail when no node in the list
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+
+    return lastNode;
+  }
+
   output() {
+    var str = "";
     var currentNode = this.head;
     for (var i = 0; i < this.length; i++) {
-      console.log(currentNode.val);
+      str += ` ${currentNode.val}`;
       currentNode = currentNode.next;
     }
+
+    console.log(str);
   }
 }
 
@@ -38,4 +69,13 @@ var list = new SinglyLinkedList();
 list.push(10);
 list.push(20);
 list.push(30);
+list.output();
+list.pop();
+list.output();
+list.pop();
+list.pop();
+list.output();
+list.push(1);
+list.push(2);
+list.push(5);
 list.output();
