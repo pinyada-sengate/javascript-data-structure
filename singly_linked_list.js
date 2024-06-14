@@ -103,6 +103,19 @@ class SinglyLinkedList {
     return node;
   }
 
+  // change the value of a node based on the index
+  // return false if the node not found
+  // if the node is found, set the value and return true
+  set(index, val) {
+    var node = this.get(index);
+
+    if (node === null) return false;
+
+    node.val = val;
+
+    return true;
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
