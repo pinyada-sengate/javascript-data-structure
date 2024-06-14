@@ -89,6 +89,20 @@ class SinglyLinkedList {
     this.length++;
   }
 
+  // take the index and return the node
+  get(index) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    var node = this.head;
+    for (var i = 0; i < index; i++) {
+      node = node.next;
+    }
+
+    return node;
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -129,3 +143,6 @@ list.unShift(88);
 list.output();
 list.shift();
 list.output();
+console.log(list.get(0));
+console.log(list.get(3));
+console.log(list.get(4));
