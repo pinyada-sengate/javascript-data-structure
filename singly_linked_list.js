@@ -27,6 +27,7 @@ class SinglyLinkedList {
   }
 
   // remove a node from the end
+  // return the removed node
   pop() {
     if (this.head === null && this.tail === null) {
       return undefined;
@@ -51,6 +52,25 @@ class SinglyLinkedList {
     }
 
     return lastNode;
+  }
+
+  //remove and return the first node
+  shift() {
+    if (this.head === null && this.tail === null) {
+      return undefined;
+    }
+
+    var firstNode = this.head;
+    this.head = firstNode.next;
+
+    this.length--;
+
+    // reset tail when no node in the list
+    if (this.length === 0) {
+      this.tail = null;
+    }
+
+    return firstNode;
   }
 
   output() {
@@ -78,4 +98,13 @@ list.output();
 list.push(1);
 list.push(2);
 list.push(5);
+list.output();
+list.shift();
+list.shift();
+list.output();
+list.shift();
+list.output();
+list.push(100);
+list.push(120);
+list.push(130);
 list.output();
