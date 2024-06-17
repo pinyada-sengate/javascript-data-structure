@@ -166,24 +166,33 @@ class SinglyLinkedList {
 
     console.log(str);
   }
+
+  reverse() {
+    // switch head and tail
+    var temp = this.tail;
+    this.tail = this.head;
+    this.head = temp;
+
+    var currentNode = this.tail.next;
+    var prevNode = this.tail;
+    var next;
+    while (currentNode) {
+      next = currentNode.next;
+      currentNode.next = prevNode;
+      prevNode = currentNode;
+      currentNode = next;
+    }
+  }
 }
 
 var list = new SinglyLinkedList();
 list.push(10);
+// list.output();
+// list.insert(0, 1);
+// list.output();
+// list.insert(2, 33);
+// list.output();
+// list.insert(1, 5);
 list.output();
-list.insert(0, 1);
-list.output();
-list.insert(-1, -1);
-list.output();
-list.insert(2, 33);
-list.output();
-list.insert(1, 5);
-list.output();
-list.remove(-1);
-list.output();
-list.remove(1);
-list.output();
-list.remove(0);
-list.output();
-list.remove(1);
+list.reverse();
 list.output();
