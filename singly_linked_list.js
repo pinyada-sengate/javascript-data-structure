@@ -137,6 +137,25 @@ class SinglyLinkedList {
     return true;
   }
 
+  // return the removed node
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+
+    if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    } else {
+      var prevNode = this.get(index - 1);
+      var removedNode = prevNode.next;
+      prevNode.next = removedNode.next;
+      this.length--;
+      return removedNode;
+    }
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -151,14 +170,20 @@ class SinglyLinkedList {
 
 var list = new SinglyLinkedList();
 list.push(10);
-list.push(20);
-list.push(30);
 list.output();
 list.insert(0, 1);
 list.output();
 list.insert(-1, -1);
 list.output();
-list.insert(4, 33);
+list.insert(2, 33);
 list.output();
 list.insert(1, 5);
+list.output();
+list.remove(-1);
+list.output();
+list.remove(1);
+list.output();
+list.remove(0);
+list.output();
+list.remove(1);
 list.output();
