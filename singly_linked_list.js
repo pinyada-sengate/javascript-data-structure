@@ -116,6 +116,27 @@ class SinglyLinkedList {
     return true;
   }
 
+  insert(index, val) {
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+
+    if (index === 0) {
+      this.unShift(val);
+    } else if (index === this.length) {
+      this.push(val);
+    } else {
+      var newNode = new Node(val);
+      var prevNode = this.get(index - 1);
+      var temp = prevNode.next;
+      prevNode.next = newNode;
+      newNode.next = temp;
+      this.length++;
+    }
+
+    return true;
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -133,29 +154,11 @@ list.push(10);
 list.push(20);
 list.push(30);
 list.output();
-list.pop();
+list.insert(0, 1);
 list.output();
-list.pop();
-list.pop();
+list.insert(-1, -1);
 list.output();
-list.push(1);
-list.push(2);
-list.push(5);
+list.insert(4, 33);
 list.output();
-list.shift();
-list.shift();
+list.insert(1, 5);
 list.output();
-list.shift();
-list.output();
-list.push(100);
-list.push(120);
-list.push(130);
-list.output();
-list.unShift(99);
-list.unShift(88);
-list.output();
-list.shift();
-list.output();
-console.log(list.get(0));
-console.log(list.get(3));
-console.log(list.get(4));
