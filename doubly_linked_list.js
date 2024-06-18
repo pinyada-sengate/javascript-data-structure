@@ -13,6 +13,7 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
+  // return doubly lisked list
   push(val) {
     var newNode = new Node(val);
     if (this.head === null && this.tail === null) {
@@ -26,6 +27,28 @@ class DoublyLinkedList {
     }
     this.length++;
     return this;
+  }
+
+  // return undefined if no node in the list
+  // remove the last node and return that node
+  pop() {
+    if (this.head === null && this.tail === null) {
+      return undefined;
+    }
+
+    var tail = this.tail;
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      var prev = tail.prev;
+      prev.next = null;
+      this.tail = prev;
+    }
+
+    this.length--;
+    return tail;
   }
 
   output() {
@@ -55,5 +78,13 @@ list.output();
 list.push(3);
 list.push(5);
 list.push(7);
+list.output();
+list.outputReverse();
+list.pop();
+list.output();
+list.outputReverse();
+list.pop();
+list.pop();
+console.log(list.pop());
 list.output();
 list.outputReverse();
