@@ -42,6 +42,7 @@ class DoublyLinkedList {
       this.head = null;
       this.tail = null;
     } else {
+      tail.next = null;
       var prev = tail.prev;
       prev.next = null;
       this.tail = prev;
@@ -83,7 +84,7 @@ list.outputReverse();
 list.pop();
 list.output();
 list.outputReverse();
-list.pop();
+console.log(list.pop());
 list.pop();
 console.log(list.pop());
 list.output();
