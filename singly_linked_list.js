@@ -74,7 +74,7 @@ class SinglyLinkedList {
   }
 
   // add a new node to the begining of the linked list
-  unShift(val) {
+  unshift(val) {
     var newNode = new Node(val);
 
     // empty linked list
@@ -122,7 +122,7 @@ class SinglyLinkedList {
     }
 
     if (index === 0) {
-      this.unShift(val);
+      this.unshift(val);
     } else if (index === this.length) {
       this.push(val);
     } else {

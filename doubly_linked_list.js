@@ -73,6 +73,8 @@ class DoublyLinkedList {
     return head;
   }
 
+  unshift() {}
+
   output() {
     var str = "";
     var currentNode = this.head;
