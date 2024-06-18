@@ -52,6 +52,27 @@ class DoublyLinkedList {
     return tail;
   }
 
+  // remove the first node and return its value
+  shift() {
+    if (this.head === null && this.tail === null) {
+      return undefined;
+    }
+
+    var head = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      var newHead = head.next;
+      newHead.prev = null;
+      this.head = newHead;
+      head.next = null;
+    }
+
+    this.length--;
+    return head;
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -75,17 +96,16 @@ class DoublyLinkedList {
 
 var list = new DoublyLinkedList();
 list.push(1);
-list.output();
 list.push(3);
 list.push(5);
 list.push(7);
 list.output();
-list.outputReverse();
-list.pop();
+list.shift();
 list.output();
 list.outputReverse();
-console.log(list.pop());
-list.pop();
-console.log(list.pop());
+list.shift();
+list.shift();
 list.output();
-list.outputReverse();
+list.shift();
+list.output();
+console.log(list.shift());
