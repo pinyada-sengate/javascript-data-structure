@@ -73,7 +73,21 @@ class DoublyLinkedList {
     return head;
   }
 
-  unshift() {}
+  // return the list
+  unshift(val) {
+    var newNode = new Node(val);
+    if (this.head === null && this.tail === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+
+    this.length++;
+    return this;
+  }
 
   output() {
     var str = "";
@@ -110,4 +124,7 @@ list.shift();
 list.output();
 list.shift();
 list.output();
-console.log(list.shift());
+list.unshift(10);
+list.output();
+list.unshift(20);
+list.output();
