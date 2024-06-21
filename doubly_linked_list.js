@@ -132,6 +132,20 @@ class DoublyLinkedList {
     }
   }
 
+  // replace the value of node
+  // return true when find the node and update success
+  // return false when node is not found
+  set(index, val) {
+    var node = this.get(index);
+
+    if (node) {
+      node.val = val;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -175,3 +189,7 @@ console.log(list.get(-1));
 console.log(list.get(0));
 console.log(list.get(1));
 console.log(list.get(2));
+console.log(list.set(1, 25));
+list.output();
+console.log(list.set(2, 50));
+list.output();
