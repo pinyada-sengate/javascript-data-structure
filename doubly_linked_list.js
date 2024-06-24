@@ -111,7 +111,7 @@ class DoublyLinkedList {
       if (index === currentIndex) {
         return currentNode;
       }
-      currentNode.next;
+      currentNode = currentNode.next;
       currentIndex++;
     }
   }
@@ -174,6 +174,34 @@ class DoublyLinkedList {
     }
   }
 
+  // return the removed node
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+
+    if (index === 0) {
+      return this.shift();
+    } else if (index === this.length - 1) {
+      return this.pop();
+    } else {
+      var removeNode = this.get(index);
+      if (removeNode) {
+        var prevNode = removeNode.prev;
+        var nextNode = removeNode.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+
+        removeNode.prev = null;
+        removeNode.next = null;
+        this.length--;
+        return removeNode;
+      } else {
+        return undefined;
+      }
+    }
+  }
+
   output() {
     var str = "";
     var currentNode = this.head;
@@ -200,24 +228,12 @@ list.push(1);
 list.push(3);
 list.push(5);
 list.push(7);
-list.output();
-list.shift();
-list.output();
-list.outputReverse();
-list.shift();
-list.shift();
-list.output();
-list.shift();
-list.output();
 list.unshift(10);
-list.output();
 list.unshift(20);
 list.output();
-console.log(list.get(-1));
-console.log(list.get(0));
-console.log(list.get(1));
-console.log(list.get(2));
-console.log(list.set(1, 25));
+list.remove(0);
 list.output();
-console.log(list.set(2, 50));
+list.remove(4);
+list.output();
+list.remove(1);
 list.output();
