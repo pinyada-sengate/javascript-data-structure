@@ -26,4 +26,30 @@ class Stack {
 
     return ++this.size;
   }
+
+  pop() {
+    if (!this.first && !this.last) {
+      return null;
+    }
+
+    var removeNode = this.first;
+    if (this.size === 1) {
+      this.first = null;
+      this.last = null;
+    } else {
+      this.first = this.first.next;
+    }
+
+    this.size--;
+    return removeNode.value;
+  }
 }
+
+var stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.pop());
