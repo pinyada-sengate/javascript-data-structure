@@ -1,5 +1,5 @@
 class HashTable {
-  constructor() {
+  constructor(size = 17) {
     this.keyMap = new Array(size);
   }
 
@@ -12,5 +12,15 @@ class HashTable {
       total = (total * WEIRD_PRIME + value) % this.keyMap.length;
     }
     return total;
+  }
+
+  // [, , [[key, value], [key, value]] , , , , , ,]
+  set(key, value) {
+    let index = this._hash(key);
+    if (!this.keyMap[index]) {
+      this.keyMap[index] = [];
+    }
+
+    this.keyMap[index].push([key, value]);
   }
 }
