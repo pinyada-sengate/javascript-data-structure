@@ -74,6 +74,29 @@ class Graph {
 
     return result;
   }
+
+  breadthFirst(start) {
+    const queue = [start];
+    const result = [];
+
+    const visited = {
+      [start]: true,
+    };
+
+    while (queue.length) {
+      const vertex = queue.shift();
+      result.push(vertex);
+
+      this.adjacencyList[vertex].forEach((neighbor) => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.push(neighbor);
+        }
+      });
+    }
+
+    return result;
+  }
 }
 
 let graph = new Graph();
@@ -96,6 +119,8 @@ graph.addEdge("E", "F");
 console.log(graph.depthFirstRecursive("A"));
 
 console.log(graph.depthFirstIterative("A"));
+
+console.log(graph.breadthFirst("A"));
 
 //            A
 //          /   \
