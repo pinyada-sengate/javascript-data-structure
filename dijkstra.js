@@ -1,99 +1,21 @@
+// get the smallest thing first
 class PriorityQueue {
   constructor() {
     this.values = [];
   }
 
-  enqueue(value, priority) {
-    const node = new Node(value, priority);
-    this.values.push(node);
-    this.bubbleUp();
+  enqueue(val, priority) {
+    this.values.push({ val, priority });
+    this.sort();
   }
 
-  bubbleUp() {
-    let index = this.values.length - 1;
-    const data = this.values[index];
-
-    while (index > 0) {
-      let parentIndex = Math.floor((index - 1) / 2);
-      let parent = this.values[parentIndex];
-
-      if (data.priority >= parent.priority) break;
-
-      this.values[parentIndex] = data;
-      this.values[index] = parent;
-      index = parentIndex;
-    }
-  }
-
+  // get the smallest priority
   dequeue() {
-    const min = this.values[0];
-    const end = this.values.pop();
-
-    if (this.values.length > 0) {
-      this.values[0] = end;
-      this.bubbleDown();
-    }
-
-    return min;
+    return this.values.shift();
   }
 
-  bubbleDown() {
-    var index = 0;
-    var length = this.values.length;
-
-    while (true) {
-      var leftChildIndex = 2 * index + 1;
-      var rightChildIndex = 2 * index + 2;
-      var data = this.values[index];
-
-      var leftChild = this.values[leftChildIndex];
-      var rightChild = this.values[rightChildIndex];
-
-      if (
-        leftChildIndex < length &&
-        rightChildIndex < length &&
-        leftChild.priority < data.priority &&
-        rightChild.priority < data.priority
-      ) {
-        if (leftChild.priority < rightChild.priority) {
-          //swap left
-          this.values[index] = leftChild;
-          this.values[leftChildIndex] = data;
-          index = leftChildIndex;
-        } else {
-          //swap right
-          this.values[index] = this.values[rightChildIndex];
-          this.values[rightChildIndex] = data;
-          index = rightChildIndex;
-        }
-      } else if (
-        leftChildIndex < length &&
-        leftChild.priority < data.priority
-      ) {
-        //swap left
-        this.values[index] = leftChild;
-        this.values[leftChildIndex] = data;
-        index = leftChildIndex;
-      } else if (
-        rightChildIndex < length &&
-        rightChild.priority < data.priority
-      ) {
-        //swap right
-        this.values[index] = this.values[rightChildIndex];
-        this.values[rightChildIndex] = data;
-        index = rightChildIndex;
-      } else {
-        // no swap
-        break;
-      }
-    }
-  }
-}
-
-class Node {
-  constructor(value, priority) {
-    this.value = value;
-    this.priority = priority;
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
   }
 }
 
@@ -115,26 +37,28 @@ class WeightedGraph {
 
   dijkstra(start, finish) {
     const nodes = new PriorityQueue();
-    const distances = {};
-    const previous = {};
-    let smallest;
-    let path = []; // return the result
+    const distances = {}; // store the number of total weight
+    const previous = {}; // store the alphabet of the previous vertex
+    let path = []; // store the result
 
     //build up initial state
     for (let vertex in this.adjacencyList) {
       if (vertex === start) {
         distances[vertex] = 0;
-        nodes.enqueue(vertex, 0);
+        nodes.enqueue(vertex, 0); // add each vetex to priority queue
       } else {
         distances[vertex] = Infinity;
-        nodes.enqueue(vertex, Infinity);
+        nodes.enqueue(vertex, Infinity); // enqueue later to deal with value is not Infinity
       }
       previous[vertex] = null;
     }
 
+    let smallest;
+    // have anything in the queue
     while (nodes.values.length) {
       smallest = nodes.dequeue().val;
       if (smallest === finish) {
+        // build path to return
         while (previous[smallest]) {
           path.push(smallest);
           smallest = previous[smallest];
@@ -143,14 +67,14 @@ class WeightedGraph {
       }
 
       if (smallest || distances[smallest] !== Infinity) {
-        for (let neighbor in this.adjacencyList[smallest]) {
-          let nextNode = this.adjacencyList[smallest][neighbor];
+        for (let i = 0; i < this.adjacencyList[smallest].length; i++) {
+          let nextNode = this.adjacencyList[smallest][i];
           //calculate new distance to neighbor node
           let candidate = distances[smallest] + nextNode.weight;
           let nextNeighbor = nextNode.node;
           if (candidate < distances[nextNeighbor]) {
-            distances[nextNeighbor] = candidate; // number of weight
-            previous[nextNeighbor] = smallest; // alphabet
+            distances[nextNeighbor] = candidate;
+            previous[nextNeighbor] = smallest;
             nodes.enqueue(nextNeighbor, candidate);
           }
         }
@@ -176,3 +100,5 @@ graph.addEdge("C", "F", 4);
 graph.addEdge("D", "E", 3);
 graph.addEdge("D", "F", 1);
 graph.addEdge("E", "F", 1);
+
+console.log(graph.dijkstra("A", "E"));
